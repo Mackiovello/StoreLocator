@@ -7,6 +7,6 @@ namespace StoreLocator
 {
     public class AppSettings
     {
-        public string StoreFilePath { get; set; }
+        public string StoresFilePath { get; set; }
     }
 }

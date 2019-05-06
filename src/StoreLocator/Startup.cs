@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StoreLocator.Domain;
 
 namespace StoreLocator
 {
@@ -26,7 +27,13 @@ namespace StoreLocator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services
+                .Configure<AppSettings>(Configuration.GetSection("AppSettings"))
+                .AddTransient<IStoresDeserializer>(s =>
+                {
+                    var settings = s.GetRequiredService<IOptions<AppSettings>>();
+                    return new StoresFromXmlDeserializer(settings.Value.StoresFilePath);
+                });
 
             services.AddMvc()
                 .AddNewtonsoftJson();
