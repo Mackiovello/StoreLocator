@@ -6,11 +6,11 @@ namespace StoreLocator.Data
     public class DatabaseSeeder : IDatabaseSeeder
     {
         private readonly IStoresDeserializer _storesDeserializer;
-        private readonly StoresContext _storesContext;
+        private readonly StoreContext _storesContext;
 
         public DatabaseSeeder(
             IStoresDeserializer storesDeserializer,
-            StoresContext storesContext)
+            StoreContext storesContext)
         {
             _storesDeserializer = storesDeserializer;
             _storesContext = storesContext;

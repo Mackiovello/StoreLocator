@@ -6,7 +6,7 @@ namespace StoreLocator.Models.Xml
     public class Store
     {
         [XmlElement(ElementName = "id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }

@@ -1,6 +1,4 @@
-﻿using StoreLocator.Models;
-using StoreLocator.Models.Xml;
-using System.Collections.Generic;
+﻿using StoreLocator.Models.Xml;
 
 namespace StoreLocator.Data
 {

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using StoreLocator.Model.Database;
 using StoreLocator.Data;
+using StoreLocator.Services;
 
 namespace StoreLocator
 {
@@ -29,9 +30,10 @@ namespace StoreLocator
                     var settings = s.GetRequiredService<IOptions<AppSettings>>();
                     return new StoresFromXmlDeserializer(settings.Value.StoresFilePath);
                 })
-                .AddDbContext<StoresContext>(builder =>
+                .AddDbContext<StoreContext>(builder =>
                     builder.UseSqlite(Configuration.GetConnectionString("DefaultDatabase")))
-                .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
+                .AddTransient<IDatabaseSeeder, DatabaseSeeder>()
+                .AddTransient<IStoreService, StoreService>();
 
             services.AddMvc()
                 .AddNewtonsoftJson();

@@ -23,6 +23,11 @@ namespace StoreLocator.Data
         {
             var serializer = new XmlSerializer(typeof(Stores));
 
+            // The code can explode here if the file at the
+            // path doesn't follow the schema. I've decided
+            // to ignore this since it's only deserialized
+            // when we need to create a database, and thus,
+            // it's easy to track down anyway.
             using var streamReader = new StreamReader(_path);
             return (Stores)serializer.Deserialize(streamReader);
         }

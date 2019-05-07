@@ -2,9 +2,9 @@
 
 namespace StoreLocator.Model.Database
 {
-    public class StoresContext : DbContext
+    public class StoreContext : DbContext
     {
-        public StoresContext(DbContextOptions<StoresContext> options) : base(options)
+        public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
         }
 
