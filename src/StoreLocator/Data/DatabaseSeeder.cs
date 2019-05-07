@@ -1,4 +1,5 @@
 ﻿using StoreLocator.Model.Database;
+using System.Linq;
 
 namespace StoreLocator.Data
 {
@@ -18,6 +19,11 @@ namespace StoreLocator.Data
         public void Seed()
         {
             _storesContext.Database.EnsureCreated();
+
+            if (_storesContext.Stores.Any())
+            {
+                return;
+            }
 
             var stores = _storesDeserializer.Deserialize();
 
