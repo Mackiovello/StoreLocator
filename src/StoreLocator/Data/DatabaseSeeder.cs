@@ -1,8 +1,4 @@
 ﻿using StoreLocator.Model.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StoreLocator.Data
 {
@@ -23,8 +19,20 @@ namespace StoreLocator.Data
         {
             _storesContext.Database.EnsureCreated();
 
-            // TODO: Add stores from XML file
-            _storesContext.Stores.Add(new Store() { Id = "som", Latitude = "123", Longitude = "1231", Name = "mystore" });
+            var stores = _storesDeserializer.Deserialize();
+
+            foreach (var store in stores.AllStores)
+            {
+                var databaseStore = new Store()
+                {
+                    Id = store.Id,
+                    Name = store.Name,
+                    Longitude = store.Longitude,
+                    Latitude = store.Latitude
+                };
+
+                _storesContext.Stores.Add(databaseStore);
+            }
 
             _storesContext.SaveChanges();
         }
