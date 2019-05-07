@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using StoreLocator.Model.Database;
 using StoreLocator.Data;
 using StoreLocator.Services;
+using StoreLocator.Repositories;
 
 namespace StoreLocator
 {
@@ -33,6 +34,7 @@ namespace StoreLocator
                 .AddDbContext<StoreContext>(builder =>
                     builder.UseSqlite(Configuration.GetConnectionString("DefaultDatabase")))
                 .AddTransient<IDatabaseSeeder, DatabaseSeeder>()
+                .AddTransient<IStoreRepository, StoreRepository>()
                 .AddTransient<IStoreService, StoreService>();
 
             services.AddMvc()

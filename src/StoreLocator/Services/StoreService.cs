@@ -1,39 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using StoreLocator.Dto;
-using StoreLocator.Model.Database;
+using StoreLocator.Repositories;
 
 namespace StoreLocator.Services
 {
     internal class StoreService : IStoreService
     {
-        private readonly StoreContext _storeContext;
+        private readonly IStoreRepository _storeRepository;
 
-        public StoreService(StoreContext storeContext)
+        public StoreService(IStoreRepository storeRepository)
         {
-            _storeContext = storeContext;
+            _storeRepository = storeRepository;
         }
 
         public async Task<IEnumerable<StoreDto>> GetAllAsync()
         {
-            var stores = await _storeContext.Stores.ToArrayAsync();
-
-            return stores.Select(s => new StoreDto(s.Id, s.Name, s.Latitude, s.Longitude));
+            return await _storeRepository.GetAllAsync();
         }
 
         public async Task<StoreDto> GetByIdAsync(int id)
         {
-            var store = await _storeContext.Stores.SingleOrDefaultAsync(s => s.Id == id);
-
-            if (store == null)
-            {
-                return null;
-            }
-
-            return new StoreDto(store.Id, store.Name, store.Latitude, store.Longitude);
+            return await _storeRepository.GetByIdAsync(id);
         }
     }
 }
