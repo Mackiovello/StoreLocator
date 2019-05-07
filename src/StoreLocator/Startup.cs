@@ -30,16 +30,7 @@ namespace StoreLocator
                     return new StoresFromXmlDeserializer(settings.Value.StoresFilePath);
                 })
                 .AddDbContext<StoresContext>(builder =>
-                {
-                    // TODO: Use appsettings.json here and in StoresContextFactory
-                    // see https://stackoverflow.com/q/45796776/6843102
-                    var connectionString = Environment.GetEnvironmentVariable("STORE_LOCATOR_DB");
-                    if (string.IsNullOrWhiteSpace(connectionString))
-                    {
-                        throw new Exception("The environment variable STORE_LOCATOR_DB is not set");
-                    }
-                    builder.UseSqlite(connectionString);
-                })
+                    builder.UseSqlite(Configuration.GetConnectionString("DefaultDatabase")))
                 .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
 
             services.AddMvc()
