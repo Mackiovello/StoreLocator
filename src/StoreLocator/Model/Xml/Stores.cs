@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace StoreLocator.Models
+namespace StoreLocator.Models.Xml
 {
     [XmlRoot(ElementName = "stores")]
     public class Stores

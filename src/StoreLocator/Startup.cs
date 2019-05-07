@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using StoreLocator.Domain;
+using StoreLocator.Model.Database;
+using StoreLocator.Data;
 
 namespace StoreLocator
 {
@@ -33,7 +35,19 @@ namespace StoreLocator
                 {
                     var settings = s.GetRequiredService<IOptions<AppSettings>>();
                     return new StoresFromXmlDeserializer(settings.Value.StoresFilePath);
-                });
+                })
+                .AddDbContext<StoresContext>(builder =>
+                {
+                    // TODO: Use appsettings.json here and in StoresContextFactory
+                    // see https://stackoverflow.com/q/45796776/6843102
+                    var connectionString = Environment.GetEnvironmentVariable("STORE_LOCATOR_DB");
+                    if (string.IsNullOrWhiteSpace(connectionString))
+                    {
+                        throw new Exception("The environment variable STORE_LOCATOR_DB is not set");
+                    }
+                    builder.UseSqlite(connectionString);
+                })
+                .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
 
             services.AddMvc()
                 .AddNewtonsoftJson();

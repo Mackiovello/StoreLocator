@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace StoreLocator.Models
+namespace StoreLocator.Models.Xml
 {
     [XmlRoot(ElementName = "store")]
     public class Store

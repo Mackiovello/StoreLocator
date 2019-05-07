@@ -1,7 +1,8 @@
 ﻿using StoreLocator.Models;
+using StoreLocator.Models.Xml;
 using System.Collections.Generic;
 
-namespace StoreLocator.Domain
+namespace StoreLocator.Data
 {
     public interface IStoresDeserializer
     {

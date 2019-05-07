@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StoreLocator.Domain;
+using StoreLocator.Data;
+using StoreLocator.Model.Database;
 
 namespace StoreLocator.Controllers
 {
@@ -11,19 +12,18 @@ namespace StoreLocator.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IStoresDeserializer _storesDeserializer;
+        private readonly StoresContext _storesContext;
 
-        public ValuesController(IStoresDeserializer storesDeserializer)
+        public ValuesController(StoresContext storesContext)
         {
-            _storesDeserializer = storesDeserializer;
+            _storesContext = storesContext;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var stores = _storesDeserializer.Deserialize();
-            return stores.AllStores.Select(s => s.Name).ToArray();
+            return _storesContext.Stores.Select(s => s.Name).ToArray();
         }
 
         // GET api/values/5

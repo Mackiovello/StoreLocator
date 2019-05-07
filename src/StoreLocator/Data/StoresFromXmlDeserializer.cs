@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
-using StoreLocator.Models;
+using StoreLocator.Models.Xml;
 
-namespace StoreLocator.Domain
+namespace StoreLocator.Data
 {
     public class StoresFromXmlDeserializer : IStoresDeserializer
     {
