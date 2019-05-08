@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StoreLocator.Dto;
@@ -22,6 +21,8 @@ namespace StoreLocator.Controllers
         public async Task<ActionResult<StoreDto[]>> GetAsync()
         {
             var stores = await _storeService.GetAllAsync();
+            // No implicit casts to interfaces, so we have
+            // to use an array instead of IEnumerable
             return stores.ToArray();
         }
 
@@ -32,7 +33,7 @@ namespace StoreLocator.Controllers
 
             if (store == null)
             {
-                return await Task.FromResult(new NotFoundResult());
+                return new NotFoundResult();
             }
 
             return store;
