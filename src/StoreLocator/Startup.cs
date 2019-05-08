@@ -34,7 +34,8 @@ namespace StoreLocator
                 .AddDbContext<StoreContext>(builder =>
                     builder.UseSqlite(Configuration.GetConnectionString("DefaultDatabase")))
                 .AddTransient<IDatabaseSeeder, DatabaseSeeder>()
-                .AddTransient<IStoreRepository, StoreRepository>()
+                .AddTransient<IStoreRepositoryFactory, StoreRepositoryFactory>()
+                .AddTransient(s => s.GetRequiredService<IStoreRepositoryFactory>().Create())
                 .AddTransient<IStoreService, StoreService>();
 
             services.AddMvc()

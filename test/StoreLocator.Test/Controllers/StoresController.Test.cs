@@ -3,9 +3,7 @@ using Moq;
 using StoreLocator.Controllers;
 using StoreLocator.Dto;
 using StoreLocator.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
