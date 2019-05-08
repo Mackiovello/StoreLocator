@@ -5,7 +5,7 @@ using StoreLocator.Models.Xml;
 
 namespace StoreLocator.Data
 {
-    public class StoresFromXmlDeserializer : IStoresDeserializer
+    internal class StoresFromXmlDeserializer : IStoresDeserializer
     {
         private readonly string _path;
 

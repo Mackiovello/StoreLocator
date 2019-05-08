@@ -3,24 +3,24 @@ using System.Linq;
 
 namespace StoreLocator.Data
 {
-    public class DatabaseSeeder : IDatabaseSeeder
+    internal class DatabaseSeeder : IDatabaseSeeder
     {
         private readonly IStoresDeserializer _storesDeserializer;
-        private readonly StoreContext _storesContext;
+        private readonly StoreContext _storeContext;
 
         public DatabaseSeeder(
             IStoresDeserializer storesDeserializer,
-            StoreContext storesContext)
+            StoreContext storeContext)
         {
             _storesDeserializer = storesDeserializer;
-            _storesContext = storesContext;
+            _storeContext = storeContext;
         }
 
         public void Seed()
         {
-            _storesContext.Database.EnsureCreated();
+            _storeContext.Database.EnsureCreated();
 
-            if (_storesContext.Stores.Any())
+            if (_storeContext.Stores.Any())
             {
                 return;
             }
@@ -37,10 +37,10 @@ namespace StoreLocator.Data
                     Latitude = store.Latitude
                 };
 
-                _storesContext.Stores.Add(databaseStore);
+                _storeContext.Stores.Add(databaseStore);
             }
 
-            _storesContext.SaveChanges();
+            _storeContext.SaveChanges();
         }
     }
 }
