@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using StoreLocator.Model.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StoreLocator.Repositories
 {

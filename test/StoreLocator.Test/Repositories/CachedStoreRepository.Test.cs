@@ -8,7 +8,7 @@ namespace StoreLocator.Test.Repositories
     public class CachedStoreRepositoryTests
     {
         [Fact]
-        public async void RetrievingAllTwiceInARow_OnlyCallsRepositoryOnce()
+        public async void RetrievingAllTwiceInARow_CallsRepositoryOnce()
         {
             var repository = new Mock<IStoreRepository>();
             var cache = new MemoryCache(new MemoryCacheOptions()); 
